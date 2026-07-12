@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_dark">#121214</color>
+    <color name="input_bg">#242426</color>
+    <color name="brand_green">#13C268</color>
+    <color name="brand_green_pressed">#0FA859</color>
+    <color name="text_hint">#787880</color>
+    <color name="social_vk">#2D81E7</color>
+    <color name="social_ok">#F57C00</color>
+    <color name="divider_color">#2C2C2E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>

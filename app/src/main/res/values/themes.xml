@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/brand_green</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <!-- Font Family (Roboto) -->
+        <item name="android:fontFamily">sans-serif</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="BottomNavText" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textFontWeight">600</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">15sp</item>
+        <item name="android:lineSpacingMultiplier">1.25</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:gravity">center</item>
+    </style>
+</resources>

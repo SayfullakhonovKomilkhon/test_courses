@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_dark"
+    android:padding="16dp">
+
+    <!-- Scrollable container to prevent cutoffs on smaller screens -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Title "Регистрация" -->
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:text="Регистрация"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:fontFamily="sans-serif"
+                android:lineHeight="36sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Email Label -->
+            <TextView
+                android:id="@+id/tvEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Email"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Email Input -->
+            <EditText
+                android:id="@+id/etEmail"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_input"
+                android:hint="example@gmail.com"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tvEmailLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Password Label -->
+            <TextView
+                android:id="@+id/tvPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Пароль"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/etEmail"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Password Input -->
+            <EditText
+                android:id="@+id/etPassword"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_input"
+                android:hint="Введите пароль"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tvPasswordLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Repeat Password Label -->
+            <TextView
+                android:id="@+id/tvRepeatPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Повторить пароль"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                app:layout_constraintTop_toBottomOf="@id/etPassword"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Repeat Password Input -->
+            <EditText
+                android:id="@+id/etRepeatPassword"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/input_height"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_input"
+                android:hint="Введите пароль ещё раз"
+                android:textColorHint="@color/text_hint"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:fontFamily="sans-serif"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toBottomOf="@id/tvRepeatPasswordLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Register Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnRegister"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/bg_rounded_button"
+                android:text="Регистрация"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/etRepeatPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Link to Login -->
+            <TextView
+                android:id="@+id/tvLoginLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Уже есть аккаунт? Войти"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/btnRegister"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Social divider -->
+            <View
+                android:id="@+id/divider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="32dp"
+                android:background="@color/divider_color"
+                app:layout_constraintTop_toBottomOf="@id/tvLoginLink"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Social buttons container -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/social_button_height"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <!-- VK Button -->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnVK"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_social_vk"
+                    android:src="@drawable/ic_social_vk"
+                    android:scaleType="centerInside"
+                    android:contentDescription="VK" />
+
+                <!-- OK Button -->
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/btnOK"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/bg_social_ok"
+                    android:src="@drawable/ic_social_ok"
+                    android:scaleType="centerInside"
+                    android:contentDescription="Odnoklassniki" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

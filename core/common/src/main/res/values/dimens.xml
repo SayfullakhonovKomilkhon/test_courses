@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_xlarge">32dp</dimen>
+    <dimen name="input_height">48dp</dimen>
+    <dimen name="button_height">56dp</dimen>
+    <dimen name="social_button_height">46dp</dimen>
+    <dimen name="corner_radius_button">28dp</dimen>
+    <dimen name="corner_radius_input">30dp</dimen>
+    <dimen name="corner_radius_badge">24dp</dimen>
+    <dimen name="text_size_title">28sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_small">14sp</dimen>
+</resources>

@@ -1,0 +1,6 @@
+{
+  "name": "Курсы",
+  "description": "Приложение для поиска и регистрации на тысячи курсов в одном месте",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
