@@ -18,88 +18,123 @@ class CourseRepositoryImpl(
 
     private val staticFallbackCourses = listOf(
         Course(
-            id = 1,
+            id = 100,
             title = "Java-разработчик с нуля",
             category = "Программирование",
-            description = "Освойте backend-разработку и программирование на Java, фреймворки...",
+            description = "Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.",
             price = "999 ₽",
             rating = 4.9,
             date = "22 Мая 2024",
-            imageBgColor = "#FFAA00"
+            imageBgColor = "#FFAA00",
+            publishDate = "2024-02-02"
         ),
         Course(
-            id = 2,
+            id = 101,
             title = "3D-дженералист",
             category = "Дизайн",
-            description = "Освой профессию 3D-дженералиста и стань универсальным специалистом, который умеет...",
+            description = "Освой профессию 3D-дженералиста и стань универсальным специалистом, который умеет создавать 3D-модели, текстуры и анимации, а также может строить карьеру в геймдеве, кино, рекламе или дизайне.",
             price = "12 000 ₽",
             rating = 3.9,
             date = "10 Сентября 2024",
-            imageBgColor = "#E3C6B6"
+            imageBgColor = "#E3C6B6",
+            publishDate = "2024-01-20"
         ),
         Course(
-            id = 3,
-            title = "RabbitMQ для разработчиков",
+            id = 102,
+            title = "Python Advanced. Для продвинутых",
             category = "Программирование",
-            description = "Полный курс по обмену сообщениями, очередям и паттернам интеграции микросервисов.",
-            price = "2 499 ₽",
-            rating = 4.7,
-            date = "15 Июня 2024",
-            imageBgColor = "#2E5BFF"
+            description = "Вы узнаете, как разрабатывать гибкие и высокопроизводительные серверные приложения на языке Kotlin. Преподаватели на вебинарах покажут пример того, как разрабатывается проект маркетплейса: от идеи и постановки задачи – до конечного решения",
+            price = "1 299 ₽",
+            rating = 4.3,
+            date = "12 Октября 2024",
+            imageBgColor = "#2E5BFF",
+            publishDate = "2024-08-10"
         ),
         Course(
-            id = 4,
-            title = "Основы веб-дизайна в Figma",
-            category = "Дизайн",
-            description = "Научитесь проектировать современные веб-интерфейсы, создавать адаптивные сетки и интерактивные прототипы.",
+            id = 103,
+            title = "Системный аналитик",
+            category = "Аналитика",
+            description = "Освоите навыки системной аналитики с нуля за 9 месяцев. Будет очень много практики на реальных проектах, чтобы вы могли сразу стартовать в IT.",
             price = "1 199 ₽",
             rating = 4.5,
-            date = "01 Июля 2024",
-            imageBgColor = "#FF5C00"
+            date = "15 Апреля 2024",
+            imageBgColor = "#9B51E0",
+            publishDate = "2024-01-13"
         ),
         Course(
-            id = 5,
-            title = "B2B Маркетинг: Стратегия",
-            category = "Маркетинг",
-            description = "Пошаговое руководство по генерации лидов в сфере B2B, настройке воронки продаж и работе с крупными клиентами.",
-            price = "4 500 ₽",
-            rating = 4.2,
-            date = "18 Августа 2024",
-            imageBgColor = "#9B51E0"
-        ),
-        Course(
-            id = 6,
-            title = "Google Аналитика 4",
+            id = 104,
+            title = "Аналитик данных",
             category = "Аналитика",
-            description = "Освойте современный инструмент веб-аналитики, отслеживание событий, создание кастомных отчетов и когортный анализ.",
-            price = "3 200 ₽",
-            rating = 4.6,
-            date = "05 Сентября 2024",
-            imageBgColor = "#F2994A"
+            description = "В этом уроке вы узнаете, кто такой аналитик данных и какие задачи он решает. А главное — мы расскажем, чему вы научитесь по завершении программы обучения профессии «Аналитик данных».",
+            price = "899 ₽",
+            rating = 4.7,
+            date = "20 Июня 2024",
+            imageBgColor = "#FFAA00",
+            publishDate = "2024-03-12"
         )
     )
+
+    private fun formatJsonDate(dateStr: String): String {
+        val parts = dateStr.split("-")
+        if (parts.size != 3) return dateStr
+        val month = when (parts[1]) {
+            "01" -> "Января"
+            "02" -> "Февраля"
+            "03" -> "Марта"
+            "04" -> "Апреля"
+            "05" -> "Мая"
+            "06" -> "Июня"
+            "07" -> "Июля"
+            "08" -> "Августа"
+            "09" -> "Сентября"
+            "10" -> "Октября"
+            "11" -> "Ноября"
+            "12" -> "Декабря"
+            else -> parts[1]
+        }
+        val day = parts[2].toIntOrNull()?.toString() ?: parts[2]
+        return "$day $month ${parts[0]}"
+    }
+
+    private fun getCategoryForTitle(title: String): String {
+        return when {
+            title.contains("Java", ignoreCase = true) || title.contains("Python", ignoreCase = true) -> "Программирование"
+            title.contains("3D", ignoreCase = true) -> "Дизайн"
+            title.contains("Аналитик", ignoreCase = true) -> "Аналитика"
+            else -> "Программирование"
+        }
+    }
 
     override fun getCoursesFlow(searchQuery: String, category: String): Flow<Resource<List<Course>>> {
         val remoteFlow = flow {
             emit(Resource.Loading)
             try {
-                val dtos = api.getCourses()
-                val courses = dtos.map { dto ->
-                    val rating = when (dto.id) {
-                        1 -> 4.9
-                        2 -> 3.9
-                        else -> 4.0 + (dto.id % 10) / 10.0
+                val response = api.getCourses()
+
+                // Pre-populate database with initial likes if DB is empty
+                try {
+                    val currentFavs = dao.getAllFavorites()
+                    if (currentFavs.isEmpty()) {
+                        response.courses.filter { it.hasLike }.forEach { dto ->
+                            dao.insertFavorite(
+                                FavoriteCourseEntity(
+                                    id = dto.id,
+                                    title = dto.title,
+                                    category = getCategoryForTitle(dto.title),
+                                    isFavorite = true
+                                )
+                            )
+                        }
                     }
-                    val date = when (dto.id) {
-                        1 -> "22 Мая 2024"
-                        2 -> "10 Сентября 2024"
-                        else -> "12 Октября 2024"
-                    }
-                    val price = when (dto.id) {
-                        1 -> "999 ₽"
-                        2 -> "12 000 ₽"
-                        else -> "5 000 ₽"
-                    }
+                } catch (dbEx: Exception) {
+                    dbEx.printStackTrace()
+                }
+
+                val courses = response.courses.map { dto ->
+                    val rating = dto.rate.toDoubleOrNull() ?: 4.0
+                    val date = formatJsonDate(dto.startDate)
+                    val price = "${dto.price} ₽"
+                    val courseCategory = getCategoryForTitle(dto.title)
                     val bgColor = when (dto.id % 4) {
                         0 -> "#FFAA00"
                         1 -> "#E3C6B6"
@@ -109,17 +144,35 @@ class CourseRepositoryImpl(
                     Course(
                         id = dto.id,
                         title = dto.title,
-                        category = dto.category,
-                        description = dto.description,
+                        category = courseCategory,
+                        description = dto.text,
                         price = price,
                         rating = rating,
                         date = date,
-                        imageBgColor = bgColor
+                        imageBgColor = bgColor,
+                        publishDate = dto.publishDate
                     )
                 }
                 emit(Resource.Success(courses))
             } catch (e: Exception) {
-                // If remote fails, return static courses as fallback
+                // If remote fails, return static courses as fallback and pre-populate DB if empty
+                try {
+                    val currentFavs = dao.getAllFavorites()
+                    if (currentFavs.isEmpty()) {
+                        staticFallbackCourses.filter { it.id == 100 || it.id == 104 }.forEach { course ->
+                            dao.insertFavorite(
+                                FavoriteCourseEntity(
+                                    id = course.id,
+                                    title = course.title,
+                                    category = course.category,
+                                    isFavorite = true
+                                )
+                            )
+                        }
+                    }
+                } catch (dbEx: Exception) {
+                    dbEx.printStackTrace()
+                }
                 emit(Resource.Success(staticFallbackCourses))
             }
         }
@@ -158,7 +211,8 @@ class CourseRepositoryImpl(
                     price = staticCourse?.price ?: "999 ₽",
                     rating = staticCourse?.rating ?: 4.9,
                     date = staticCourse?.date ?: "22 Мая 2024",
-                    imageBgColor = staticCourse?.imageBgColor ?: "#FFAA00"
+                    imageBgColor = staticCourse?.imageBgColor ?: "#FFAA00",
+                    publishDate = staticCourse?.publishDate ?: "2024-01-01"
                 )
             }
         }

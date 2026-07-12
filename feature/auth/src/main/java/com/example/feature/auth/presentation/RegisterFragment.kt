@@ -1,7 +1,11 @@
 package com.example.feature.auth.presentation
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.InputFilter
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +42,46 @@ class RegisterFragment : Fragment() {
         observeViewModel()
     }
 
+    private fun validateInput() {
+        val email = binding.etEmail.text.toString().trim()
+        val password = binding.etPassword.text.toString().trim()
+        val repeatPassword = binding.etRepeatPassword.text.toString().trim()
+        val emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}\$".toRegex()
+
+        val isValid = email.isNotEmpty() && password.isNotEmpty() && repeatPassword.isNotEmpty() &&
+                emailPattern.matches(email) && password == repeatPassword
+        val isNotLoading = viewModel.authState.value !is Resource.Loading
+        binding.btnRegister.isEnabled = isValid && isNotLoading
+    }
+
     private fun setupListeners() {
+        // Cyrillic Input Filter for Email
+        val cyrillicFilter = InputFilter { source, start, end, _, _, _ ->
+            for (i in start until end) {
+                val c = source[i]
+                // Cyrillic unicode block ranges
+                if (c.code in 0x0400..0x04FF || c.code in 0x0500..0x052F) {
+                    return@InputFilter ""
+                }
+            }
+            null
+        }
+        binding.etEmail.filters = arrayOf(cyrillicFilter)
+
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                validateInput()
+            }
+        }
+        binding.etEmail.addTextChangedListener(textWatcher)
+        binding.etPassword.addTextChangedListener(textWatcher)
+        binding.etRepeatPassword.addTextChangedListener(textWatcher)
+
+        // Run validation on start
+        validateInput()
+
         binding.btnRegister.setOnClickListener {
             val email = binding.etEmail.text.toString().trim()
             val password = binding.etPassword.text.toString().trim()
@@ -51,13 +94,13 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnVK.setOnClickListener {
-            Toast.makeText(requireContext(), "Регистрация через VK...", Toast.LENGTH_SHORT).show()
-            navigateToMain()
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://vk.com/"))
+            startActivity(intent)
         }
 
         binding.btnOK.setOnClickListener {
-            Toast.makeText(requireContext(), "Регистрация через OK...", Toast.LENGTH_SHORT).show()
-            navigateToMain()
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://ok.ru/"))
+            startActivity(intent)
         }
     }
 
@@ -71,18 +114,17 @@ class RegisterFragment : Fragment() {
                             binding.btnRegister.text = "Создание..."
                         }
                         is Resource.Success -> {
-                            binding.btnRegister.isEnabled = true
                             binding.btnRegister.text = "Регистрация"
                             Toast.makeText(requireContext(), "Аккаунт создан!", Toast.LENGTH_SHORT).show()
                             navigateToMain()
                         }
                         is Resource.Error -> {
-                            binding.btnRegister.isEnabled = true
                             binding.btnRegister.text = "Регистрация"
+                            validateInput()
                         }
                         else -> {
-                            binding.btnRegister.isEnabled = true
                             binding.btnRegister.text = "Регистрация"
+                            validateInput()
                         }
                     }
                 }

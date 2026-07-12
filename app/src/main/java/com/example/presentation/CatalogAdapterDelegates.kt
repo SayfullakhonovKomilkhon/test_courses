@@ -30,13 +30,22 @@ fun courseAdapterDelegate(
 
         try {
             val context = binding.root.context
-            val backgroundDrawable = androidx.core.content.ContextCompat.getDrawable(
-                context,
-                com.example.core.common.R.drawable.bg_course_image
-            )?.mutate()
-            backgroundDrawable?.setTint(android.graphics.Color.parseColor(item.imageBgColor))
-            binding.ivCourseImage.background = backgroundDrawable
+            if (item.title.contains("Java", ignoreCase = true)) {
+                binding.ivCourseImage.setImageResource(com.example.core.common.R.drawable.img_java_course)
+            } else if (item.title.contains("3D", ignoreCase = true) || item.title.contains("дженералист", ignoreCase = true)) {
+                binding.ivCourseImage.setImageResource(com.example.core.common.R.drawable.img_design_course)
+            } else if (item.title.contains("Python", ignoreCase = true) || item.title.contains("продвинутых", ignoreCase = true)) {
+                binding.ivCourseImage.setImageResource(com.example.core.common.R.drawable.img_python_course)
+            } else {
+                val backgroundDrawable = androidx.core.content.ContextCompat.getDrawable(
+                    context,
+                    com.example.core.common.R.drawable.bg_course_image
+                )?.mutate()
+                backgroundDrawable?.setTint(android.graphics.Color.parseColor(item.imageBgColor))
+                binding.ivCourseImage.setImageDrawable(backgroundDrawable)
+            }
         } catch (e: Exception) {
+            binding.ivCourseImage.setImageDrawable(null)
             binding.ivCourseImage.setBackgroundColor(android.graphics.Color.GRAY)
         }
 

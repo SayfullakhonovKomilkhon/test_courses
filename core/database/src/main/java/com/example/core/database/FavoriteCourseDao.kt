@@ -8,6 +8,9 @@ interface FavoriteCourseDao {
     @Query("SELECT * FROM favorite_courses")
     fun getAllFavoritesFlow(): Flow<List<FavoriteCourseEntity>>
 
+    @Query("SELECT * FROM favorite_courses")
+    suspend fun getAllFavorites(): List<FavoriteCourseEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavorite(course: FavoriteCourseEntity)
 

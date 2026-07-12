@@ -9,5 +9,6 @@ data class Course(
     val price: String = "999 ₽",
     val rating: Double = 4.9,
     val date: String = "22 Мая 2024",
-    val imageBgColor: String = "#FFAA00"
+    val imageBgColor: String = "#FFAA00",
+    val publishDate: String = "2024-01-01"
 )

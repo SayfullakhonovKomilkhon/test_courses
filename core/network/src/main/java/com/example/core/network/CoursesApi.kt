@@ -5,8 +5,8 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface CoursesApi {
-    @GET("courses")
-    suspend fun getCourses(): List<CourseDto>
+    @GET("https://drive.google.com/uc?id=15arTK7XT2b7Yv4BJsmDctA4Hg-BbS8-q&export=download")
+    suspend fun getCourses(): CoursesResponse
 
     @POST("auth/login")
     suspend fun login(@Body request: LoginRequest): AuthResponse

@@ -3,6 +3,8 @@ package com.example.feature.onboarding.presentation
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.feature.onboarding.databinding.ActivityOnboardingBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -16,6 +18,18 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Ensure proper top and bottom padding to avoid notch and system navigation bar overlapping
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.setPadding(
+                view.paddingLeft,
+                systemBars.top,
+                view.paddingRight,
+                systemBars.bottom
+            )
+            insets
+        }
+
         setupListeners()
     }
 
@@ -23,14 +37,6 @@ class OnboardingActivity : AppCompatActivity() {
         binding.btnContinue.setOnClickListener {
             navigateToAuth()
         }
-
-        // Disable scrolling on row containers to keep the tag cloud static and interactive-free
-        val touchListener = android.view.View.OnTouchListener { _, _ -> true }
-        binding.hsvRow1.setOnTouchListener(touchListener)
-        binding.hsvRow2.setOnTouchListener(touchListener)
-        binding.hsvRow3.setOnTouchListener(touchListener)
-        binding.hsvRow4.setOnTouchListener(touchListener)
-        binding.hsvRow5.setOnTouchListener(touchListener)
     }
 
     private fun navigateToAuth() {

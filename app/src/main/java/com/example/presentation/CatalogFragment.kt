@@ -40,7 +40,7 @@ class CatalogFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Add top padding dynamically based on system bar insets to avoid sticking to notch or top status bar
+        // Add top padding dynamically based on system bar insets
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.root.setPadding(0, systemBars.top, 0, 0)
@@ -49,6 +49,7 @@ class CatalogFragment : Fragment() {
 
         setupRecyclerViews()
         setupSearch()
+        setupSort()
         observeViewModel()
     }
 
@@ -81,6 +82,26 @@ class CatalogFragment : Fragment() {
             }
             override fun afterTextChanged(s: Editable?) {}
         })
+    }
+
+    private fun setupSort() {
+        binding.tvSort.setOnClickListener {
+            viewModel.toggleSort()
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.isSortedByDate.collectLatest { isSorted ->
+                    if (isSorted) {
+                        binding.tvSort.setTextColor(android.graphics.Color.parseColor("#13C268")) // Active Green
+                        binding.tvSort.text = "По дате публикации (убыв.)"
+                    } else {
+                        binding.tvSort.setTextColor(android.graphics.Color.parseColor("#9A9C9E")) // Inactive Gray
+                        binding.tvSort.text = "По умолчанию"
+                    }
+                }
+            }
+        }
     }
 
     private fun observeViewModel() {
